@@ -38,7 +38,7 @@ export default async function Rank() {
         <div key={entry.summonerId} style={{ display: 'flex' }}>
           <div style={{ width: 100 }}>{index + 1}</div>
           <div style={{ width: 200 }}>{entry.summonerName}</div>
-          <div style={{ width: 200 }}>Challenger</div>
+          <div style={{ width: 200 }}>Challengerd</div>
           <div style={{ width: 200 }}>{entry.leaguePoints} LP</div>
           <div style={{ width: 100 }}>{entry.wins}</div>
           <div style={{ width: 100 }}>
