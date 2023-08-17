@@ -1,34 +1,32 @@
-import Layout from "../components/common/Layout";
-import { useState } from "react";
-import styles from "./Ranking.module.css";
-import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import InputAdornment from "@mui/material/InputAdornment";
-import TextField from "@mui/material/TextField";
-import SearchIcon from "@mui/icons-material/Search";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import Layout from '../components/common/Layout';
+import { useState, useEffect } from 'react';
+import styles from './Ranking.module.css';
+import Box from '@mui/material/Box';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import axios from 'axios';
+
+const apiKey = process.env.REACT_APP_DEVELOPMENT_API_KEY;
 
 function createData(index, summonerId, tier, lp, top4Count, top4Rate, Games) {
   return { index, summonerId, tier, lp, top4Count, top4Rate, Games };
 }
 
-let rows = [];
-
-for (let i = 1; i <= 100; i++) {
-  rows.push(createData(i, "abc", "Chanllenger", 100032, 322, 70.22, 500));
-}
-
 const Ranking = () => {
-  const [region, setRegion] = useState("kr");
-  const [tier, setTier] = useState("challenger");
+  const [region, setRegion] = useState('kr');
+  const [tier, setTier] = useState('challenger');
+  const [rows, setRows] = useState([]);
 
   const handleChangeRegion = (event) => {
     setRegion(event.target.value);
@@ -41,6 +39,37 @@ const Ranking = () => {
   const handleInputChange = (event) => {
     // 입력값 처리하는 로직 작성
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let tempRows = [];
+        const response = await axios.get(
+          `https://kr.api.riotgames.com/tft/league/v1/challenger?api_key=${apiKey}`,
+        );
+        const sortedEntries = response.data.entries.sort(
+          (a, b) => b.leaguePoints - a.leaguePoints,
+        );
+        sortedEntries.forEach((e, index) => {
+          tempRows.push(
+            createData(
+              index + 1,
+              e.summonerName,
+              'Chanllenger',
+              e.leaguePoints,
+              e.wins,
+              ((e.wins / (e.wins + e.losses)) * 100).toFixed(2),
+              e.wins + e.losses,
+            ),
+          );
+        });
+        setRows(tempRows);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getData();
+  }, []);
 
   return (
     <Layout>
@@ -64,19 +93,19 @@ const Ranking = () => {
                 value={region}
                 onChange={handleChangeRegion}
                 sx={{
-                  color: "white",
+                  color: 'white',
                   height: 40,
-                  ".MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#424254",
+                  '.MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#424254',
                   },
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#424254",
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#424254',
                   },
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#424254",
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#424254',
                   },
-                  ".MuiSvgIcon-root ": {
-                    fill: "#7b7a8e",
+                  '.MuiSvgIcon-root ': {
+                    fill: '#7b7a8e',
                   },
                   fontSize: 14,
                 }}
@@ -92,19 +121,19 @@ const Ranking = () => {
                 value={tier}
                 onChange={handleChangeTier}
                 sx={{
-                  color: "white",
+                  color: 'white',
                   height: 40,
-                  ".MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#424254",
+                  '.MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#424254',
                   },
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#424254",
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#424254',
                   },
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#424254",
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#424254',
                   },
-                  ".MuiSvgIcon-root ": {
-                    fill: "#7b7a8e",
+                  '.MuiSvgIcon-root ': {
+                    fill: '#7b7a8e',
                   },
                   fontSize: 14,
                 }}
@@ -119,20 +148,20 @@ const Ranking = () => {
               sx={{
                 height: 40,
                 minWidth: 20,
-                background: "black",
-                borderRadius: "5px",
-                color: "#1c1c1f",
+                background: '#1c1c1f',
+                borderRadius: '5px',
+                color: '#1c1c1f',
               }}
               InputProps={{
-                sx: { height: 40, color: "white", fontSize: 14 },
+                sx: { height: 40, color: 'white', fontSize: 14 },
                 endAdornment: (
                   <InputAdornment position="end">
-                    <SearchIcon sx={{ color: "#7b7a8e" }} />
+                    <SearchIcon sx={{ color: '#7b7a8e' }} />
                   </InputAdornment>
                 ),
                 classes: {
                   input: {
-                    color: "white",
+                    color: 'white',
                     height: 40,
                   },
                 },
@@ -148,44 +177,44 @@ const Ranking = () => {
               sx={{
                 minWidth: 650,
                 fontSize: 12,
-                backgroundColor: "#31313c",
+                backgroundColor: '#31313c',
               }}
               size="small"
             >
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}>
+                  <TableCell sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}>
                     #
                   </TableCell>
-                  <TableCell sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}>
+                  <TableCell sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}>
                     소환사
                   </TableCell>
                   <TableCell
-                    sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                    sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                     align="right"
                   >
                     티어
                   </TableCell>
                   <TableCell
-                    sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                    sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                     align="right"
                   >
                     LP
                   </TableCell>
                   <TableCell
-                    sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                    sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                     align="right"
                   >
                     순방 횟수
                   </TableCell>
                   <TableCell
-                    sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                    sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                     align="right"
                   >
                     순방 확률
                   </TableCell>
                   <TableCell
-                    sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                    sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                     align="right"
                   >
                     게임 수
@@ -196,46 +225,46 @@ const Ranking = () => {
                 {rows.map((row) => (
                   <TableRow
                     key={row.index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell
-                      sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                       component="th"
                       scope="row"
                     >
                       {row.index}
                     </TableCell>
                     <TableCell
-                      sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                     >
                       {row.summonerId}
                     </TableCell>
                     <TableCell
-                      sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                       align="right"
                     >
                       {row.tier}
                     </TableCell>
                     <TableCell
-                      sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                       align="right"
                     >
-                      {row.lp}
+                      {row.lp} LP
                     </TableCell>
                     <TableCell
-                      sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                       align="right"
                     >
                       {row.top4Count}
                     </TableCell>
                     <TableCell
-                      sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                       align="right"
                     >
                       {row.top4Rate}
                     </TableCell>
                     <TableCell
-                      sx={{ color: "#7b7a8e", borderColor: "#1c1c1f" }}
+                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                       align="right"
                     >
                       {row.Games}
