@@ -1,15 +1,14 @@
 .navbar {
-  background-color: #5383e8;
   padding: 1px 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 1080px;
 }
 
 .navContainer {
   display: flex;
-  justify-content: center;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+  gap: 24px;
 }
 
 .navlink {
@@ -17,10 +16,29 @@
   color: #b3c7f9;
   text-decoration: none;
   font-weight: bold;
-  margin: 0 20px;
   padding: 15px 0; /* for mouse hover pointer */
   position: relative;
   overflow: hidden;
+}
+
+.navlinkActive {
+  font-size: 16px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 15px 0; /* for mouse hover pointer */
+  position: relative;
+  overflow: hidden;
+}
+
+.navlinkActive::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px; /* 높이를 조절하여 줄의 두께를 설정할 수 있습니다. */
+  width: 100%;
+  background-color: #ffffff; /* 줄의 색상 설정 */
 }
 
 .navlink:hover {
@@ -28,7 +46,7 @@
 }
 
 .navlink::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
