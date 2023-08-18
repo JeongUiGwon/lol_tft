@@ -52,7 +52,50 @@
   justify-content: flex-end;
 }
 
+.tableContainer {
+  background-color: #31313c;
+  border-radius: 4px;
+}
+
 .tableCell {
   color: #7b7a8e;
   border-color: #1c1c1f;
+}
+
+.summoner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.summoner img {
+  width: 32px;
+  height: 32px;
+}
+
+.tier {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tier img {
+  width: 24px;
+  height: 24px;
+}
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 12px;
+  border-top: 1px solid rgb(28, 28, 31);
+  height: 80px;
+}
+
+.pageInfo {
+  color: #9e9eb1;
+  font-size: 12px;
+  text-align: center;
 }

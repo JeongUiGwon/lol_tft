@@ -171,12 +171,11 @@ const Ranking = () => {
             />
           </div>
         </div>
-        <div>
+        <div className={styles.tableContainer}>
           <TableContainer component={Paper}>
             <Table
               sx={{
                 minWidth: 650,
-                fontSize: 12,
                 backgroundColor: '#31313c',
               }}
               size="small"
@@ -190,31 +189,51 @@ const Ranking = () => {
                     소환사
                   </TableCell>
                   <TableCell
-                    sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                    sx={{
+                      color: '#7b7a8e',
+                      borderColor: '#1c1c1f',
+                      textAlign: 'center',
+                    }}
                     align="right"
                   >
                     티어
                   </TableCell>
                   <TableCell
-                    sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                    sx={{
+                      color: '#7b7a8e',
+                      borderColor: '#1c1c1f',
+                      textAlign: 'center',
+                    }}
                     align="right"
                   >
                     LP
                   </TableCell>
                   <TableCell
-                    sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                    sx={{
+                      color: '#7b7a8e',
+                      borderColor: '#1c1c1f',
+                      textAlign: 'center',
+                    }}
                     align="right"
                   >
                     순방 횟수
                   </TableCell>
                   <TableCell
-                    sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                    sx={{
+                      color: '#7b7a8e',
+                      borderColor: '#1c1c1f',
+                      textAlign: 'center',
+                    }}
                     align="right"
                   >
                     순방 확률
                   </TableCell>
                   <TableCell
-                    sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                    sx={{
+                      color: '#7b7a8e',
+                      borderColor: '#1c1c1f',
+                      textAlign: 'center',
+                    }}
                     align="right"
                   >
                     게임 수
@@ -225,10 +244,17 @@ const Ranking = () => {
                 {rows.map((row) => (
                   <TableRow
                     key={row.index}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                      height: 48,
+                    }}
                   >
                     <TableCell
-                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                      sx={{
+                        color: '#7b7a8e',
+                        borderColor: '#1c1c1f',
+                        fontSize: '12px',
+                      }}
                       component="th"
                       scope="row"
                     >
@@ -237,34 +263,67 @@ const Ranking = () => {
                     <TableCell
                       sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
                     >
-                      {row.summonerId}
+                      <div className={styles.summoner}>
+                        <img src="images/zedIcon.png" alt="summoner" />
+                        <span>{row.summonerId}</span>
+                      </div>
                     </TableCell>
                     <TableCell
-                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                      sx={{
+                        color: '#7b7a8e',
+                        borderColor: '#1c1c1f',
+                        fontSize: '12px',
+                      }}
                       align="right"
                     >
-                      {row.tier}
+                      <div className={styles.tier}>
+                        <img
+                          src="images/Challenger_Emblem_2022.png"
+                          alt="tier"
+                        />
+                        <span>{row.tier}</span>
+                      </div>
                     </TableCell>
                     <TableCell
-                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                      sx={{
+                        color: '#7b7a8e',
+                        borderColor: '#1c1c1f',
+                        fontSize: '12px',
+                        textAlign: 'center',
+                      }}
                       align="right"
                     >
                       {row.lp} LP
                     </TableCell>
                     <TableCell
-                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                      sx={{
+                        color: '#7b7a8e',
+                        borderColor: '#1c1c1f',
+                        fontSize: '12px',
+                        textAlign: 'center',
+                      }}
                       align="right"
                     >
                       {row.top4Count}
                     </TableCell>
                     <TableCell
-                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                      sx={{
+                        color: '#7b7a8e',
+                        borderColor: '#1c1c1f',
+                        fontSize: '12px',
+                        textAlign: 'center',
+                      }}
                       align="right"
                     >
                       {row.top4Rate}
                     </TableCell>
                     <TableCell
-                      sx={{ color: '#7b7a8e', borderColor: '#1c1c1f' }}
+                      sx={{
+                        color: '#7b7a8e',
+                        borderColor: '#1c1c1f',
+                        fontSize: '12px',
+                        textAlign: 'center',
+                      }}
                       align="right"
                     >
                       {row.Games}
@@ -274,6 +333,11 @@ const Ranking = () => {
               </TableBody>
             </Table>
           </TableContainer>
+          <div className={styles.pageContainer}>
+            <div className={styles.pageInfo}>
+              #1 ~ #100 / 전체 1,826,830 소환사
+            </div>
+          </div>
         </div>
       </div>
     </Layout>
