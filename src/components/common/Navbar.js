@@ -1,14 +1,15 @@
-import { useLocation, Link } from "react-router-dom";
-import styles from "./Navbar.module.css";
+import { useLocation, Link } from 'react-router-dom';
+import styles from './Navbar.module.css';
 
+// NavBar 구현 ugjeong 240125
 const Navbar = () => {
   const location = useLocation();
   const navLinks = [
-    { href: "/", name: "홈" },
-    { href: "/meta-trends", name: "메타 트렌드" },
-    { href: "/game-guide", name: "게임 가이드" },
-    { href: "/ranking", name: "랭킹" },
-    { href: "/tools", name: "배치툴/사기주사위" },
+    { href: '/', name: '홈' },
+    { href: '/meta-trends', name: '메타 트렌드' },
+    { href: '/game-guide', name: '게임 가이드' },
+    { href: '/ranking', name: '랭킹' },
+    { href: '/tools', name: '배치툴/사기주사위' },
   ];
 
   return (
